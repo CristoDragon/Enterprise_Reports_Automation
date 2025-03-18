@@ -18,7 +18,7 @@ import zipfile
 
 # Author: Dragon Xu (rxu@msa.com)
 # Date: 07/22/2024
-# Description: This class is used to run the ITG Summary Report job.
+# Description: This class is used to run the Type 1 Report A job.
 
 
 class TOB_ITG_Summary_Rpt:
