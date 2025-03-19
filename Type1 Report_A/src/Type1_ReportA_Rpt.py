@@ -5,7 +5,7 @@ import traceback
 import os
 import pdr.handlers.Console_Handler as console
 import pdr.data.Dynamic_Report as dr
-import pdr.period.ITG as itg
+import pdr.period.XXX as XXX
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
@@ -16,12 +16,12 @@ import zipfile
 
 
 
-# Author: Dragon Xu (rxu@msa.com)
+# Author: Dragon Xu
 # Date: 07/22/2024
 # Description: This class is used to run the Type 1 Report A job.
 
 
-class TOB_ITG_Summary_Rpt:
+class Type1_ReportA_Rpt:
     # Initialize all the instance variables
     def __init__(self, connection, table, report_id, template_path, output_path):
         # Initialize the connection to the Oracle database
@@ -40,8 +40,8 @@ class TOB_ITG_Summary_Rpt:
         # Initialize the current datetime
         self.current_datetime = datetime.datetime.now().strftime('%m/%d/%Y %H:%M:%S')
         # Initialize the current week code
-        self.cwk = itg.get_itg_period_code(self.connection)
-        self.end_week = itg.get_itg_end_week(self.connection, self.cwk)
+        self.cwk = XXX.get_XXX_period_code(self.connection)
+        self.end_week = XXX.get_XXX_end_week(self.connection, self.cwk)
         # Initialize a list of week in format '%m/%d/%Y'
         self.weeks = self.init_weeks()
         # Initialize fills
@@ -70,14 +70,14 @@ class TOB_ITG_Summary_Rpt:
         self.SPACE = ' '
         self.UNDERSCORE = '_'
         # Initialize template file names and output file names for dynamic reports
-        self.dr_cig = "ITG_CIG_G360_XXXXX"
-        self.dr_ecig = "ITG_ECIG_G360_XXXXX"
-        self.dr_cgr = "ITG_CGR_G360_XXXXX"
-        self.dr_otp = "ITG_OTP_G360_XXXXX"
-        self.wdc_cig = "ITG_CIG_WDC_XXXXX"
-        self.wdc_ecig = "ITG_ECIG_WDC_XXXXX"
-        self.wdc_cgr = "ITG_CGR_WDC_XXXXX"
-        self.wdc_otp = "ITG_OTP_WDC_XXXXX"
+        self.dr_cig = "XXX_CIG_G360_XXXXX"
+        self.dr_ecig = "XXX_ECIG_G360_XXXXX"
+        self.dr_cgr = "XXX_CGR_G360_XXXXX"
+        self.dr_otp = "XXX_OTP_G360_XXXXX"
+        self.wdc_cig = "XXX_CIG_WDC_XXXXX"
+        self.wdc_ecig = "XXX_ECIG_WDC_XXXXX"
+        self.wdc_cgr = "XXX_CGR_WDC_XXXXX"
+        self.wdc_otp = "XXX_OTP_WDC_XXXXX"
         if len(output_path) < 4:
             raise ValueError("Output path must contain 4 folders for CIG, ECIG, CGR, and OTP.")
         else:
@@ -213,7 +213,7 @@ class TOB_ITG_Summary_Rpt:
                 dest_cell = ws[col_complete + str(row_complete)]
                 # Copy the style of the sample cell to the destination cell if it is provided
                 if sample_cell is not None:
-                    TOB_ITG_Summary_Rpt.copy_paste_cell(
+                    Type1_ReportA_Rpt.copy_paste_cell(
                         sample_cell, dest_cell, alt_value=True, alt_border=alt_border
                     )
                 dest_cell.value = df.iat[row - 1, col - 1]
@@ -243,13 +243,13 @@ class TOB_ITG_Summary_Rpt:
         if not alt_value:
             dest_cell.value = src_cell.value
         if not alt_font:
-            dest_cell.font = TOB_ITG_Summary_Rpt.get_cell_font(src_cell)
+            dest_cell.font = Type1_ReportA_Rpt.get_cell_font(src_cell)
         if not alt_alignment:
-            dest_cell.alignment = TOB_ITG_Summary_Rpt.get_cell_alignment(src_cell)
+            dest_cell.alignment = Type1_ReportA_Rpt.get_cell_alignment(src_cell)
         if not alt_fill:
-            dest_cell.fill = TOB_ITG_Summary_Rpt.get_cell_fill(src_cell)
+            dest_cell.fill = Type1_ReportA_Rpt.get_cell_fill(src_cell)
         if not alt_border:
-            dest_cell.border = TOB_ITG_Summary_Rpt.get_cell_border(src_cell)
+            dest_cell.border = Type1_ReportA_Rpt.get_cell_border(src_cell)
              
     @staticmethod
     def get_cell_fill(cell: Cell) -> PatternFill:
@@ -448,7 +448,7 @@ class TOB_ITG_Summary_Rpt:
             # Execute the query and get the data as a DataFrame
             df = pd.read_sql_query(query, self.connection)
             # Check if the DataFrame is None or empty
-            TOB_ITG_Summary_Rpt.validate_df(df, self.tb_dr_reports)
+            Type1_ReportA_Rpt.validate_df(df, self.tb_dr_reports)
             # Get the report description from the DataFrame
             return df["REPORT_DESC"][0]
         except Exception as e:
@@ -480,7 +480,7 @@ class TOB_ITG_Summary_Rpt:
             # Replace all the null values with 0
             df.fillna(0, inplace=True)
             # Put the dataframe into the worksheet starting from cell A8
-            TOB_ITG_Summary_Rpt.dataframe_to_excel(df, ws, skip_rows=7)
+            Type1_ReportA_Rpt.dataframe_to_excel(df, ws, skip_rows=7)
         except Exception as e:
             console.log(f"Error in _put_data_dr_excel(): {e}")
             raise e
@@ -500,9 +500,9 @@ class TOB_ITG_Summary_Rpt:
             # Set consistent cell style
             for row in ws.iter_rows(min_row=8, max_col=max_col, max_row=max_row):
                 for cell in row:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, size=8, horizontal=None, wrapText=True, border=self.thin_border)
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, size=8, horizontal=None, wrapText=True, border=self.thin_border)
             # Auto adjust the column width of the worksheet
-            TOB_ITG_Summary_Rpt.auto_adjust_column_width(ws, 7)
+            Type1_ReportA_Rpt.auto_adjust_column_width(ws, 7)
         except Exception as e:
             console.log(f"Error in _set_style_dr_excel(): {e}")
             raise e
@@ -533,7 +533,7 @@ class TOB_ITG_Summary_Rpt:
             # Set consistent cell style for the dynamic report
             self._set_style_dr_excel(ws, len(df.columns), ws.max_row)
             # Save and close the workbook
-            TOB_ITG_Summary_Rpt.close_wb(wb, out_file)
+            Type1_ReportA_Rpt.close_wb(wb, out_file)
         except Exception as e:
             console.log(f"Error in create_dr_excel(): {e}")
             raise e
@@ -551,14 +551,14 @@ class TOB_ITG_Summary_Rpt:
         # Query the database to get dynamic report data
         df = dr.collect_dynamic_report(self.connection, self.tb_dr_reports, report_id)
         # Check if the dataframe is None or empty
-        TOB_ITG_Summary_Rpt.validate_df(df, self.dr_cig)
+        Type1_ReportA_Rpt.validate_df(df, self.dr_cig)
         return df
         
     def get_dr_wdc(self, report_id: int, df_name: str) -> pd.DataFrame:
         # Query the database to get dynamic report data
         df = dr.collect_dynamic_report(self.connection, self.tb_dr_reports, report_id)
         # Check if the dataframe is None or empty
-        TOB_ITG_Summary_Rpt.validate_df(df, df_name)
+        Type1_ReportA_Rpt.validate_df(df, df_name)
         return df
     
     def _update_weeks_curr_db(self, ws: Worksheet, weeks: list):
@@ -572,7 +572,7 @@ class TOB_ITG_Summary_Rpt:
         for i, week in enumerate(weeks):
             week_cell = ws.cell(row=2, column=i+5)
             # Set the value and style of the cell
-            TOB_ITG_Summary_Rpt.set_cell_style(week_cell, data=week, vertical="center", bold=True, wrapText=True)
+            Type1_ReportA_Rpt.set_cell_style(week_cell, data=week, vertical="center", bold=True, wrapText=True)
                 
     def _process_df_curr_db(self, df: pd.DataFrame, col_filter: str) -> pd.DataFrame:
         """Process the dataframe for the Curr_DB worksheet.
@@ -611,9 +611,9 @@ class TOB_ITG_Summary_Rpt:
         # Set consistent cell style for columns B, C, D
         for row in ws.iter_rows(min_row=3, max_row=max_row, min_col=2, max_col=4):
             for cell in row:
-                TOB_ITG_Summary_Rpt.set_cell_style(cell, None, vertical="center", horizontal="left", bold=True, fill=self.gray_fill, border=self.thin_border)
+                Type1_ReportA_Rpt.set_cell_style(cell, None, vertical="center", horizontal="left", bold=True, fill=self.gray_fill, border=self.thin_border)
         # Auto adjust the column width of the worksheet
-        #TOB_ITG_Summary_Rpt.auto_adjust_column_width(ws, 2)
+        #Type1_ReportA_Rpt.auto_adjust_column_width(ws, 2)
         
     
     def create_ws_curr_db(self, wb: Workbook, ws_name: str, df: pd.DataFrame, weeks: list, col_filter: str):
@@ -637,7 +637,7 @@ class TOB_ITG_Summary_Rpt:
             # Process the dataframe by filtering and creating a new column
             df_processed = self._process_df_curr_db(df, col_filter)
             # Put the dataframe into the worksheet starting from cell B3
-            TOB_ITG_Summary_Rpt.dataframe_to_excel(df_processed, ws, skip_rows=2)
+            Type1_ReportA_Rpt.dataframe_to_excel(df_processed, ws, skip_rows=2)
             # Set consistent cell style for the worksheet
             self._set_style_curr_db(ws, max_row=df_processed.shape[0] + 2)
         except Exception as e:
@@ -791,18 +791,18 @@ class TOB_ITG_Summary_Rpt:
         # Set consistent cell style for the first 4 columns
         for row in ws.iter_rows(min_row=6, max_row=max_row, min_col=1, max_col=4):
             for cell in row:
-                TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None)
+                Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None)
         # Set consistent cell style for the rest of colunns
         for row in ws.iter_rows(min_row=6, max_row=max_row, min_col=5, max_col=4+end_week):
             for cell in row:
-                TOB_ITG_Summary_Rpt.set_cell_style(cell, None,  name=self.calibri, size=11)
+                Type1_ReportA_Rpt.set_cell_style(cell, None,  name=self.calibri, size=11)
         # Set the number format of the cell to show as an integer
         for i in range(6, ws.max_row + 1):
             ws.cell(row=i, column=3).number_format = '0'
         # Set filter for the header row
         ws.auto_filter.ref = f"A5:R{ws.max_row}"
         # Auto adjust the column width of the worksheet
-        #TOB_ITG_Summary_Rpt.auto_adjust_column_width(ws, 5)
+        #Type1_ReportA_Rpt.auto_adjust_column_width(ws, 5)
         
     def _update_weeks_comparison(self, ws: Worksheet, end_week: int):
         """Update the week codes in the worksheet Final_Comparison.
@@ -816,11 +816,11 @@ class TOB_ITG_Summary_Rpt:
             week_cell = ws.cell(row=5, column=i+5)
             value = f"{self.cwk - 1 - i}     {week}"
             # Set the value and style of the cell
-            TOB_ITG_Summary_Rpt.set_cell_style(week_cell, data=value, name=self.calibri, size=11, wrapText=True)
+            Type1_ReportA_Rpt.set_cell_style(week_cell, data=value, name=self.calibri, size=11, wrapText=True)
         # Update the the last cell at row 5
         last_cell = ws.cell(row=5, column=end_week + 4)
         value1 = f"{self.cwk-end_week} - {self.cwk-end_week-12}  ABS Chngs"
-        TOB_ITG_Summary_Rpt.set_cell_style(last_cell, data=value1, name=self.calibri, size=11, wrapText=True)
+        Type1_ReportA_Rpt.set_cell_style(last_cell, data=value1, name=self.calibri, size=11, wrapText=True)
         # Update the report creation time on cell A2
         ws["A2"].value = f"Report created on {self.current_datetime}"
         
@@ -854,7 +854,7 @@ class TOB_ITG_Summary_Rpt:
             # Sort the dataframe by Totale ABS change
             df_final.sort_values(by=cols[6], ascending=False, inplace=True)
             # Put the dataframe into the worksheet starting from cell A6
-            TOB_ITG_Summary_Rpt.dataframe_to_excel(df_final, ws, skip_rows=5)
+            Type1_ReportA_Rpt.dataframe_to_excel(df_final, ws, skip_rows=5)
             # Set consistent cell style for the worksheet
             self._set_style_comparison(ws, df_final.shape[0] + 5, end_week)
         except Exception as e:
@@ -889,7 +889,7 @@ class TOB_ITG_Summary_Rpt:
             # Create the worksheet Final_Comparison
             self.create_ws_comparison(wb, self.out_final_sheets[0], filter_str, end_week) 
             # Save and close the workbook
-            TOB_ITG_Summary_Rpt.close_wb(wb, out_final)
+            Type1_ReportA_Rpt.close_wb(wb, out_final)
         except Exception as e:
             console.log(f"Error in create_final_excel(): {e}")
             raise e
@@ -905,7 +905,7 @@ class TOB_ITG_Summary_Rpt:
             # Create an excel file for the dynamic report data
             self.create_dr_excel(df_g360, self.rid_cig, self.dr_cig, self.temp_dr_cig, self.out_dr_cig, "FD4")
             # Create an excel file for the final deliverable
-            self.create_final_excel(df_g360, "Ctns", self.temp_final_cig, self.input_dr_cig, self.out_final_cig, ["ITG Brands"])
+            self.create_final_excel(df_g360, "Ctns", self.temp_final_cig, self.input_dr_cig, self.out_final_cig, ["XXX Brands"])
             # Query the database to get WDC data
             df_wdc = self.get_dr_wdc(self.rid_cig_wdc, self.wdc_cig)
             # Create an excel file for the WDC data
@@ -943,7 +943,7 @@ class TOB_ITG_Summary_Rpt:
             # Create a excel file for the dynamic report data
             self.create_dr_excel(df_g360, self.rid_cgr, self.dr_cgr, self.temp_dr_cig, self.out_dr_cgr, "FD4")
             # Create an excel file for the final deliverable. Note that we use \ to escape the parentheses in the filter string.
-            self.create_final_excel(df_g360, "Vol", self.temp_final_cgr, self.input_dr_cgr, self.out_final_cgr, ["ITG Cigars Inc \\(Mmc\\)"])
+            self.create_final_excel(df_g360, "Vol", self.temp_final_cgr, self.input_dr_cgr, self.out_final_cgr, ["XXX Cigars Inc \\(Mmc\\)"])
             # Query the database to get WDC data
             df_wdc = self.get_dr_wdc(self.rid_cgr_wdc, self.wdc_cgr)
             # Create an excel file for the WDC data
@@ -982,7 +982,7 @@ class TOB_ITG_Summary_Rpt:
         # Read wdc report data from excel for each category
         df = pd.read_excel(input_wdc, header=0, skiprows=6)
         # Check if the DataFrame is None or empty
-        TOB_ITG_Summary_Rpt.validate_df(df, input_wdc)
+        Type1_ReportA_Rpt.validate_df(df, input_wdc)
         # Concatenate the 2nd and 5th columns to create a new column
         df[self.col_curr_db[0]] = df.iloc[:, 1].astype(str) + df.iloc[:, 4].astype(str)
         # Reorder the columns so that the Concatenated column is the first column
@@ -990,7 +990,7 @@ class TOB_ITG_Summary_Rpt:
         cols = [cols[-1]] + cols[:-1]
         df = df[cols]
         # Put the data into the worksheet starting from the second row and first column
-        TOB_ITG_Summary_Rpt.dataframe_to_excel(df, ws, skip_rows=1)
+        Type1_ReportA_Rpt.dataframe_to_excel(df, ws, skip_rows=1)
         
     def _set_wdc_style(self, ws: Worksheet):
         """Set the consistent cell style for the WDC worksheet in final deliverable summary report.
@@ -1002,12 +1002,12 @@ class TOB_ITG_Summary_Rpt:
             for cell in row:
                 # Set consistent style for column 1, 3, 4, 8
                 if cell.column in [1, 3, 4, 8]:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None)
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None)
                 # Set consistent style for the rest of the columns
                 else:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal="right")
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal="right")
         # Automatically adjust the column width of the worksheet
-        TOB_ITG_Summary_Rpt.auto_adjust_column_width(ws)
+        Type1_ReportA_Rpt.auto_adjust_column_width(ws)
                     
          
     def _create_wdc_sheet(self, wb: Workbook, input_wdc: str, sheet_wdc: str):
@@ -1080,7 +1080,7 @@ class TOB_ITG_Summary_Rpt:
             # Read final comparison data from excel for each category
             df = pd.read_excel(input_fc, header=0, skiprows=4)
             # Put the old data into the worksheet starting from A6
-            TOB_ITG_Summary_Rpt.dataframe_to_excel(df, ws, skip_rows=5)
+            Type1_ReportA_Rpt.dataframe_to_excel(df, ws, skip_rows=5)
             # Remove any white space and special character * from column 5 to 18
             for column in df.columns[4:18]:
                 df[column] = df[column].astype(str).str.replace(r'[\s*]', '', regex=True)
@@ -1125,7 +1125,7 @@ class TOB_ITG_Summary_Rpt:
             cols_reorder = self.col_fc_dates
             df_dates = df[cols_reorder]
             # Put the new data into the worksheet starting from S6
-            TOB_ITG_Summary_Rpt.dataframe_to_excel(df_dates, ws, skip_rows=5, skip_cols=18)
+            Type1_ReportA_Rpt.dataframe_to_excel(df_dates, ws, skip_rows=5, skip_cols=18)
             # Update the period code in the headers of the worksheet, end_week parameter is default to 14 for all categories
             self._update_weeks_comparison(ws, 14)
         except zipfile.BadZipFile:
@@ -1148,15 +1148,15 @@ class TOB_ITG_Summary_Rpt:
             for cell in row:
                 # Set consistent style for column 1 ~ 4
                 if cell.column in [1, 2, 3, 4]:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None)
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None)
                 # Set consistent style for the rest of the columns
                 else:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11)
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11)
         # Set the number format of the cell to show as an integer
         for i in range(6, ws.max_row + 1):
             ws.cell(row=i, column=3).number_format = '0'
         # Automatically adjust the column width of the worksheet
-        #TOB_ITG_Summary_Rpt.auto_adjust_column_width(ws, 5)
+        #Type1_ReportA_Rpt.auto_adjust_column_width(ws, 5)
             
     def _create_fc_sheet(self, wb: Workbook, input_fc: str, sheet_fc: str):
         """Create the FC worksheet in the final deliverable summary report.
@@ -1541,7 +1541,7 @@ class TOB_ITG_Summary_Rpt:
             df_final = df_final[['Distributor Name', 'Customer Number', 'cig', 'blu', 'cgr', 'otp', 'Additions', 'Decreases', "Weeks Occurred", "Reason", 
             'Cigarettes (Ctns)', 'e-Cigs (Units)', 'Cigars (Sticks)', 'Otp (Sticks)']]
             # Put the data into the worksheet starting from cell A3
-            TOB_ITG_Summary_Rpt.dataframe_to_excel(df_final, ws, skip_rows=2)
+            Type1_ReportA_Rpt.dataframe_to_excel(df_final, ws, skip_rows=2)
         except Exception as e:
             console.log(f"Error in _put_summary_data(): {e}")
             raise e
@@ -1558,15 +1558,15 @@ class TOB_ITG_Summary_Rpt:
             for cell in row:
                 # Set consistent style for column 1
                 if cell.column == 1:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None, border=self.thin_border)
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, horizontal=None, border=self.thin_border)
                 # Set consistent style for the rest of the columns
                 else:
-                    TOB_ITG_Summary_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, border=self.thin_border)
+                    Type1_ReportA_Rpt.set_cell_style(cell, None, name=self.calibri, size=11, border=self.thin_border)
                 # Set the number format for column H to show only the date
                 if cell.column == 8:
                     cell.number_format = 'MM/DD/YYYY'
         # Automatically adjust the column width of the worksheet
-        TOB_ITG_Summary_Rpt.auto_adjust_column_width(ws, 2)
+        Type1_ReportA_Rpt.auto_adjust_column_width(ws, 2)
         
                                
     def _create_summary_sheet(self, wb: Workbook):
@@ -1611,7 +1611,7 @@ class TOB_ITG_Summary_Rpt:
             # Create the summary sheet
             self._create_summary_sheet(wb)
             # Save and close the workbook
-            TOB_ITG_Summary_Rpt.close_wb(wb, output)
+            Type1_ReportA_Rpt.close_wb(wb, output)
         except Exception as e:
             console.log(f"Error in create_final_summary(): {e}")
             raise e

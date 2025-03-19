@@ -2,8 +2,8 @@ import time
 import pdr.handlers.Warning_Handler as warn
 import pdr.handlers.Console_Handler as console
 import pdr.data.Connection as conn
-import src.TOB_ITG_VBA_CFG as config
-import src.TOB_ITG_Summary_Rpt as itg
+import src.Type1_ReportA_CFG as config
+import src.Type1_ReportA_Rpt as itg
 import datetime
 import sys
 
@@ -24,8 +24,8 @@ def main():
         config.password,
         msg=False,
     )
-    # Initialize an instance of the class TOB_ITG_Summary_Rpt
-    job = itg.TOB_ITG_Summary_Rpt(connection, config.table, config.report_id, config.template_file, config.output_file)
+    # Initialize an instance of the class Type1_ReportA_Rpt
+    job = itg.Type1_ReportA_Rpt(connection, config.table, config.report_id, config.template_file, config.output_file)
     # Run the Type 1 Report A job
     job.run()
 
