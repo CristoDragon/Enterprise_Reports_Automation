@@ -1,35 +1,35 @@
-# ITG_Summary_Report
+# Type1_Report_A
 
 # Note
 Confidential information has been replaced with ***** or XXXXX.
 
 # Introduction
-1. Automate the process of creating ITG summary reports (listed below)
-2. Executing file: TOB_ITG_Summary_Report_Main.py
+1. Automate the process of creating ABC summary reports (listed below)
+2. Executing file: TOB_Type1_Report_A_Main.py
 3. Table: 
     - XXXXX_PRD.PREP_XXXXX@*****
 4. Directory & Report Files (13 reports in total):
     - \\Corp\XXXXX\Cigarettes\XXXXX\Python_Test
-        - ITG_XXXXX_{period_code}.xlsx
-        - ITG_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
         - G360_XXXXX_{period_code}.xlsx
         - XXXXX_Summary_{period_code}.xlsx
     - \\Corp\XXXXX\Blu\XXXXX\Python_Test
-        - ITG_XXXXX_{period_code}.xlsx
-        - ITG_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
         - G360_XXXXX_{period_code}.xlsx
     - \\Corp\XXXXX\Cigar\XXXXX\Python_Test
-        - ITG_XXXXX_{period_code}.xlsx
-        - ITG_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
         - G360_XXXXX_{period_code}.xlsx
     - \\Corp\XXXXX\Otp\XXXXX\Python_Test
-        - ITG_XXXXX_{period_code}.xlsx
-        - ITG_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
+        - ABC_XXXXX_{period_code}.xlsx
         - G360_XXXXX_{period_code}.xlsx
 5. Template file
     - \\Corp\XXXXX\Python_Template
-        - ITG_XXXXX_Template.xlsx
-        - ITG_XXXXX_Template.xlsx
+        - ABC_XXXXX_Template.xlsx
+        - ABC_XXXXX_Template.xlsx
         - XXXXX_Template.xlsx
         - XXXXX_Template.xlsx
         - XXXXX_Template.xlsx
@@ -43,7 +43,7 @@ Confidential information has been replaced with ***** or XXXXX.
 
 # General Flow
 - Create a connection to Oracle database *****
-- Pass in all the command line parameters to initialize an instance of the class TOB_ITG_Summary_Rpt
+- Pass in all the command line parameters to initialize an instance of the class TOB_ABC_Summary_Rpt
 - Execute the run() method to run all the tasks
     - Create 3 reports for each category (Cig, Ecig, Cigar, OTP)
         - Create G360_XXXXX report -- 1 report
