@@ -9,38 +9,24 @@ This is an effort to automate the Type 4 Report generation using Python.
 
 3. Tables
     - TXXX2P
-        - DBA_USERS
-        - SYS.USER$
-        - DBA_ROLE_PRIVS
-        - DBA_UTIL.DB_USERS
-        - DBA_UTIL.MSA_SEC_APP_LOGON_TRACKER
-        - Client_X_DDL_type4_V
+        - XXXXX 
+        - ......
 
     - TXXX1P
-        - DBA_USERS
-        - SYS.USER
-        - DBA_ROLE_PRIVS
-        - DBA_UTIL.MSA_SEC_APP_OS_USER
-        - DBA_UTIL.MSA_SEC_APP_LOGON_TRACKER
-        - Client_X_DDL_type4_V
-        - DBA_UTIL.MSA_SEC_APP_LOGON_TRACKER
-        - DBA_UTIL.MSA_SEC_APP_OS_USER
-        - DBA_ROLE_PRIVS
+        - XXXXX 
+        - ......
 
     - IXXX1P
-        - intadmin.admin_user_client
-        - intadmin.admin_user
-        - intadmin.admin_class
-        - intadmin.admin_client
-        - DDL_TRACKER
+        - XXXXX 
+        - ......
 
     - IXXXP
-        - Client_X_ff_prd.PERSON
+        - XXXXX 
+        - ......
 
     - MySQL
-        - wf82prd_ra.SMQUERY_8207
-        - wf82prd_ra.SMFROMS_8207
-        - wf82prd_ra.SMSESSIONS_8207
+        - XXXXX 
+        - ......
 
 4. Directory & Report Files ("QX" represents which quarter, YY indicates which year):
     - \\Corp\XXXXX\Client_X_type4_20{YY}_Q{X}\Preview Reports for Review 
@@ -52,9 +38,9 @@ This is an effort to automate the Type 4 Report generation using Python.
         (6) Client_X_type4_QXYY_XXXX_TXXX2P_Privileges.xlsx
         (7) Client_X_type4_QXYY_XXXX_TXXX2P_Structure.xlsx
         (8) Client_X_type4_QXYY_XXXX_TXXX2P_Users.xlsx
-        (9) Client_X_type4_QXYY_DS_Access_Rpt.xlsx (external: control-M)
-        (10) Client_X_type4_QXYY_Flag_Portal_Access_Report.xlsx.xlsx (external: Andy King)
-        (11) Client_X_type4_QXYY_Program_Releases.xls (external: Wendy Boustead)
+        (9) Client_X_type4_QXYY_XXXXX_Rpt.xlsx (external: control-M)
+        (10) Client_X_type4_QXYY_XXXXX_Report.xlsx.xlsx
+        (11) Client_X_type4_QXYY_XXXXX.xls
 
     - \\Corp\XXXXX\Client_X_type4_2024_Q2\FINAL_PUBLISH REPORTS - QXYY
         - The folder will be created manually to store all the final publish reports (reports generated above after manual inspection) as well as their pdf conversion files
@@ -69,9 +55,9 @@ This is an effort to automate the Type 4 Report generation using Python.
         (6) Client_X_type4_XXXX_TXXX2P_Privileges_Template.xlsx
         (7) Client_X_type4_XXXX_TXXX2P_Structure_Template.xlsx
         (8) Client_X_type4_XXXX_TXXX2P_Users_Template.xlsx
-        (9) Client_X_type4_DS_Access_Rpt_Template.xlsx
+        (9) Client_X_type4_XXXXX_Rpt_Template.xlsx
         (10) Client_X_type4_Flag Portal Access_Report_Template.xlsx
-        (11) Client_X_type4_Program_Releases_Template.xls
+        (11) Client_X_type4_XXXXX_Template.xls
 
 6. Input File
     - \\Corp\XXXXX\Client_X_type4_2024_Q2\Report Queries
@@ -120,7 +106,7 @@ This is an effort to automate the Type 4 Report generation using Python.
     - Put the filtered dataframe to excel workbook
     - Set the style for the excel workbook
     - Close and save the changes in excel
-- Create Client_X_type4_QXYY_DS_Access_Rpt.xlsx
-- Create Client_X_type4_QXYY_Program_Releases.xls (if the input excel file exported from Power BI report exists)
-- Create Client_X_type4_QXYY_Flag_Portal_Access_Report.xlsx.xlsx
+- Create Client_X_type4_QXYY_XXXXX_Rpt.xlsx
+- Create Client_X_type4_QXYY_XXXXX.xls (if the input excel file exported from Power BI report exists)
+- Create Client_X_type4_QXYY_XXXXX_Report.xlsx.xlsx
 
