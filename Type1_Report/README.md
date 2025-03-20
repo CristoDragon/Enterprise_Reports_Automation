@@ -1,4 +1,4 @@
-# Type1_Report_A
+# Type 1 Report
 
 # Note
 Confidential information has been replaced with ***** or XXXXX.

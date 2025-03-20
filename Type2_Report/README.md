@@ -1,4 +1,4 @@
-# Subsystem Automation
+# Type2 Report
 
 # Note
 All the actual database, columns, tables, and client names have been replaced by XXXXX.
