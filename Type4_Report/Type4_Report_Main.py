@@ -57,7 +57,7 @@ def main():
         msg=False,
     )
     # Create the server and connection objects for LDAP
-    ldap_server = 'ldaps://leverwood.XXXXX.com'
+    ldap_server = 'ldaps://XXXXXXXX.XXXXX.com'
     server = Server(ldap_server, get_info=ALL)
     username = f'{config.username}@XXXXX.com'
     password = config.password[5]
